@@ -1,0 +1,3 @@
+<img src="{{image}}"/>
+<p>{{title}}</p>
+<p>{{price}}</p>

@@ -1,0 +1,142 @@
+<html>
+<head>
+    <title>What Does MVC mean in JS world?</title>
+    
+    <link rel="stylesheet" type="text/css" href="prism.css"/>
+
+    <!-- 3rd parties -->
+    <script type="text/javascript" src="../../lib/jquery.js"></script>
+    <script type="text/javascript" src="../../lib/underscore.js"></script>
+    <script type="text/javascript" src="../../lib/mustache.js"></script>
+    <script type="text/javascript" src="../../lib/backbone.js"></script>
+
+    <!-- our models -->
+    <script type="text/javascript" src="models/baseCodeModel.js"></script>
+    <script type="text/javascript" src="models/markupCodeModel.js"></script>
+    <script type="text/javascript" src="models/javascriptCodeModel.js"></script>
+
+    <style type="text/css">
+        .header { font-size: 18px; }
+        pre { background-color: #F5F2F0; padding-left: 1em; padding-right: 1em; margin-top: 0px;}
+        td { vertical-align: top;}
+        textarea { background-color: #F5F2F0; font-size: 13px;}
+    </style>
+    <script type="text/javascript">
+    $(function() {
+        var 
+
+        CodeView = Backbone.View.extend({
+            events : {
+                'click' : 'enterEditMode'
+            },
+            
+            initialize : function() {
+                _.bindAll(this);
+                this.model.on('change', this.render);
+            },
+
+            render : function() {
+                var codeText = this.model.getCodeText();
+                var highlightedText = Prism.highlight(codeText, Prism.languages[this.model.get('language')]);
+
+                this.$el.html('<pre><code>\n' + highlightedText + '\n\n</code></pre>');
+            },
+            
+            enterEditMode : function() {
+                if (this.inEditMode) {
+                    return;
+                }
+
+                var editor = $(this.make('textarea', {}, '\n' + this.model.getCodeText())).css({
+                        width : this.$el.width() + 'px',
+                        height: this.$el.height() + 'px'
+                    });
+                
+                this.$el.html(editor);
+                editor.focus().blur(this.exitEditMode);
+                
+                this.inEditMode = true;
+            }, 
+
+            exitEditMode : function() {
+                this.inEditMode = false;
+                this.model.setCode(this.$('textarea').val().replace(/^\n/, ''));
+            }
+        }),
+
+        ResultView = Backbone.View.extend({
+            initialize : function() {
+                this.model.on('change', this.render, this);
+            },
+            render : function() {
+                var templateCode = this.model.getTemplateCode(),
+                    templateData = this.model.getTemplateData();
+
+                this.$el.html(Mustache.render(templateCode, templateData));
+            }
+        }),
+
+        ResultModel = Backbone.Model.extend({
+            defaults : {
+                jsCodeModel : new JavaScriptCodeModel(),
+                markupCodeModel : new MarkupCodeModel()
+            },
+            initialize : function() {
+                this.get('jsCodeModel').on('change', this.fireChange, this);
+                this.get('markupCodeModel').on('change', this.fireChange, this);
+            },
+            getTemplateCode : function() {
+                return this.get('markupCodeModel').getCode();
+            },
+            getTemplateData : function() {
+                return this.get('jsCodeModel').getCode();
+            },
+            fireChange : function() {
+                this.trigger('change');
+            }
+        });
+
+        var resultModel = new ResultModel(),
+            jsCodeView = new CodeView({ 
+                el : $('#modelView'), 
+                model: resultModel.get('jsCodeModel')
+            }),
+            markupCodeView = new CodeView({
+                el : $('#markupView'),
+                model : resultModel.get('markupCodeModel')
+            });
+            resultView = new ResultView({
+                el : $('#result'),
+                model: resultModel
+            });
+
+        jsCodeView.render();
+        markupCodeView.render();
+        resultView.render();
+    });
+    </script>
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class='header'>Model:</div>
+                    <div id='modelView'></div>
+                </td>
+                <td>
+                    <div class='header'>View:</div>
+                    <div id='markupView'></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class='header'>Result:</div>
+                    <div id='result'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <script type="text/javascript" src='prism.js'></script>
+</body>
+</html>

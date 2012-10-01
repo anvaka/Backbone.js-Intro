@@ -1,0 +1,7 @@
+
+<div style='display: inline-block; vertical-align: middle; text-align: center; width:100%;'>
+    <h1>{{title}}</h1>
+    <h2>{{subtitle}}</h2>
+
+    <div class='author'>{{author}}</div>
+</div>
