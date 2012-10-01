@@ -5,7 +5,6 @@ define(['models/SlideModel'], function(SlideModel){
             },
 
             initialize : function(rawData) {
-                debugger;
                 this.slides = new Backbone.Collection(rawData.slides, {
                     model: SlideModel
                 });

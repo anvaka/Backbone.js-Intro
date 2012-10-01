@@ -2,7 +2,7 @@ JavaScriptCodeModel = BaseCodeModel.extend({
     defaults : {
         language : 'javascript',
         code : { 
-            image : 'book_cover.jpg',
+            image : 'images/book_cover.jpg',
             title : 'Javascript: The Good Parts',
             price : '$29.99' 
         }

@@ -1,0 +1,8 @@
+<div class='use-margin'>
+<h1>{{title}}</h1>
+<ul>
+{{#list}}
+  <li>{{name}} - <a href="{{url}}" target="_blank">{{url}}</a></li>
+{{/list}}
+</ul>
+</div>

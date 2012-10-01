@@ -20,6 +20,9 @@
     <script type="text/javascript" src="views/codeView.js"></script>
     <script type="text/javascript" src="views/resultView.js"></script>
 
+    <!-- utils -->
+    <script type="text/javascript" src="utils/listenToServerChange.js"></script>
+
     <style type="text/css">
         .header { font-size: 18px; }
         pre { background-color: #F5F2F0; padding-left: 1em; font-size: 14px; padding-right: 1em; margin-top: 0px;min-height: 150px;}
@@ -44,6 +47,8 @@
                 el : $('#result'),
                 model: resultModel
             });
+
+        listenToServerChange(resultModel.get('jsCodeModel'), 'data/code.js');
 
         jsCodeView.render();
         markupCodeView.render();

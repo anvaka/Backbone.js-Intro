@@ -1,0 +1,28 @@
+<html>
+<head>
+    <title>Code Viewer</title>
+    
+    <!-- 3rd parties -->
+    <link rel="stylesheet" type="text/css" href="lib/prism.css"/>
+    <script type="text/javascript" src='lib/prism.js'></script>
+    <script type="text/javascript" src="../../lib/jquery.js"></script>
+    <script type="text/javascript">
+    $(function() {
+        var parts = window.location.href.split('?'),
+            codeName = parts && parts[1];
+        if (codeName) {
+            $.get(codeName, function(data) {
+                $('body').append('<pre><code class="lang-javascript"></code></pre>');
+                var code = $('code');
+                code[0].textContent = data;
+                Prism.highlightAll();
+            }, 'text');
+        }
+
+    });
+    </script>
+</head>
+<body>
+
+</body>
+</html>
