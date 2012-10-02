@@ -1,4 +1,9 @@
-Installation
+View
+==================================================
+You can view this presentation [here](http://anvaka.github.com/Backbone.js-Intro/index.html#view/0/0).
+I tested it only in Google Chrome and Firefox.
+
+Local Installation
 ==================================================
 
 To get the latest code and view presentation execute the following command in the terminal:
