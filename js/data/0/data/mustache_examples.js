@@ -81,6 +81,20 @@ mustache_examples = {
   return function (text, render) { return "<b>" + render(text) + "</b>"; } }
                 },
                 template : "{{#bold}}Hi {{name}}.{{/bold}}"
-            }
+            },
+            {
+                name : 'Write in C',
+                code : {
+                    "videoId": "XHosLhPEN3k",
+                    "width": "480",
+                    "height": "360"
+                },
+                template : ['<iframe width="{{width}}"',
+                            '        height="{{height}}"',
+                            '        src="http://www.youtube.com/embed/{{videoId}}?rel=0"',
+                            '        frameborder="0"',
+                            '        allowfullscreen></iframe>'].join('\n')
+            },
+
     ]
 }
