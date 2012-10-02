@@ -1,0 +1,82 @@
+<html>
+<head>
+    <title>What Does MVC mean in JS world?</title>
+    
+    <!-- 3rd parties -->
+    <link rel="stylesheet" type="text/css" href="lib/prism.css"/>
+    <script type="text/javascript" src='lib/prism.js'></script>
+    <script type="text/javascript" src="../../lib/jquery.js"></script>
+    <script type="text/javascript" src="../../lib/underscore.js"></script>
+    <script type="text/javascript" src="../../lib/mustache.js"></script>
+    <script type="text/javascript" src="../../lib/backbone.js"></script>
+
+    <!-- our models -->
+    <script type="text/javascript" src="models/baseCodeModel.js"></script>
+    <script type="text/javascript" src="models/markupCodeModel.js"></script>
+    <script type="text/javascript" src="models/javascriptCodeModel.js"></script>
+    <script type="text/javascript" src="models/resultModel.js"></script>
+
+    <!-- our views -->
+    <script type="text/javascript" src="views/codeView.js"></script>
+    <script type="text/javascript" src="views/resultView.js"></script>
+
+    <!-- utils -->
+    <script type="text/javascript" src="utils/listenToServerChange.js"></script>
+    <script type="text/javascript" src='utils/jsonx.js'></script>
+
+    <style type="text/css">
+        .header { font-size: 18px; }
+        pre { background-color: #F5F2F0; padding-left: 1em; font-size: 14px; padding-right: 1em; margin-top: 0px;min-height: 150px;}
+        table { width: 100%;}
+        td { vertical-align: top; width: 50%; }
+        textarea { background-color: #F5F2F0; padding-left: 1em; padding-right: 1em; font-size: 14px; border: none;outline: none;font-family: monospace; white-space: pre;}
+    </style>
+    <script type="text/javascript">
+    $(function() {
+        var resultModel = new ResultModel(),
+
+            jsCodeView = new CodeView({ 
+                el : $('#modelView'), 
+                model: resultModel.get('jsCodeModel')
+            }),
+            markupCodeView = new CodeView({
+                el : $('#markupView'),
+                model : resultModel.get('markupCodeModel')
+            });
+
+            resultView = new ResultView({
+                el : $('#result'),
+                model: resultModel
+            });
+        listenToServerChange(resultModel.get('jsCodeModel'), 'data/code.js');
+
+        jsCodeView.render();
+        markupCodeView.render();
+        resultView.render();
+    });
+    </script>
+</head>
+<body>
+    <table>
+        <tbody>
+            <tr>
+                <td>
+                    <div class='header'>Model:</div>
+                    <div id='modelView'></div>
+                </td>
+                <td>
+                    <div class='header'>View:</div>
+                    <div id='markupView'></div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <div class='header'>Result:</div><br/>
+                    <div id='result'></div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>

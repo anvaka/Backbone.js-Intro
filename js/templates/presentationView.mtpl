@@ -1,0 +1,22 @@
+<div class='slideViewer'>
+<table>
+    <tbody>
+        <tr style='height:100%;'>
+            <td>
+                <div id='slideContent'>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class='statusbar'>
+                    <div class='button prevSlide'>&lt;</div>
+                    <div class='button nextSlide'>&gt;</div>
+
+                    <div class='title'>{{title}}</div>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
