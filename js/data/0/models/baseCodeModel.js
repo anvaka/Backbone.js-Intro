@@ -1,7 +1,7 @@
 BaseCodeModel = Backbone.Model.extend({
     defaults : {
-        language : '',
-        code : ''
+        code : '', // what to display?
+        language : '' // Javascript? HTML? CSS?
     },
 
     getCode : function() {

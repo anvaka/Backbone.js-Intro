@@ -9,11 +9,14 @@ JavaScriptCodeModel = BaseCodeModel.extend({
     },
 
     getCodeText : function() {
-        return JSON.stringify(this.get('code'), null, 2);
+        return JSONx.stringify(this.get('code'), 2).replace(/&/g, '&amp;')
+                   .replace(/</g, '&lt;')
+                   .replace(/>/g, '&gt;')
+                   .replace(/\u00a0/g, ' ');
     },
 
     setCode : function(newCode) {
-        var code = JSON.parse(newCode);
+        var code = JSONx.parse(newCode);
         this.set({ code : code }, {silent: true});
         this.trigger('change'); // always trigger this event;
     }

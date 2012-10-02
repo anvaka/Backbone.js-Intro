@@ -20,6 +20,8 @@
     <script type="text/javascript" src="views/codeView.js"></script>
     <script type="text/javascript" src="views/resultView.js"></script>
 
+    <script type="text/javascript" src='utils/jsonx.js'></script>
+    <script type="text/javascript" src='data/mustache_examples.js'></script>
     <style type="text/css">
         .header { font-size: 18px; }
         pre { background-color: #F5F2F0; padding-left: 1em; font-size: 14px; padding-right: 1em; margin-top: 0px;min-height: 150px;}
@@ -30,14 +32,15 @@
     <script type="text/javascript">
     $(function() {
         var resultModel = new ResultModel(),
-
+            jsCodeModel = resultModel.get('jsCodeModel'),
+            markupCodeModel = resultModel.get('markupCodeModel'),
             jsCodeView = new CodeView({ 
                 el : $('#modelView'), 
-                model: resultModel.get('jsCodeModel')
+                model: jsCodeModel
             }),
             markupCodeView = new CodeView({
                 el : $('#markupView'),
-                model : resultModel.get('markupCodeModel')
+                model : markupCodeModel
             });
 
             resultView = new ResultView({
@@ -48,6 +51,27 @@
         jsCodeView.render();
         markupCodeView.render();
         resultView.render();
+
+// TODO: I'm writing this before presentation. This part of code is
+// ugly. Don't consider this as a good practice.
+        var res = Mustache.render(
+"<ul>\
+    {{#list}}\
+    <li><a href='#'>{{name}}</a></li>\
+    {{/list}}\
+</ul>", mustache_examples);
+
+        $('#demo_links').html(res);
+        $('a', $('#demo_links')).click(function(e){
+            var name = $(this).text();
+            example = _.find(mustache_examples.list, function(example) { return example.name === name; });
+
+            if (example) {
+                jsCodeModel.set('code', example.code);
+                markupCodeModel.set('code', example.template);
+            }
+            e.preventDefault();
+        })
     });
     </script>
 </head>
@@ -65,13 +89,17 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="2">
+                <td id='demo_links'>
+                    <ul >
+                    </ul>
+                </td>
+                <td>
                     <div class='header'>Result:</div><br/>
                     <div id='result'></div>
                 </td>
             </tr>
         </tbody>
     </table>
-
+<a href='https://github.com/janl/mustache.js#templates' target="_blank">More Demos</a>
 </body>
 </html>

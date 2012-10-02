@@ -19,7 +19,11 @@ define([], {
             data: {
                 title: 'Introduction to Backbone.js',
                 subtitle: '(a way to organize modern JS apps)',
-                author: 'Andrei Kashcha (@anvaka)',
+                author: {
+                    name: 'Andrei Kashcha',
+                    twitter: 'anvaka',
+                    email: 'anvaka@gmail.com'
+                }
             },
         },
         {
@@ -30,7 +34,8 @@ define([], {
                     'Agenda',
                     'World of MV(C|P|VM)',
                     'Example',
-                    'underscore.js + backbone.js + mustache.js + ... = ?'
+                    'underscore.js + backbone.js + mustache.js + ... = ?',
+                    'Q&A, Links'
                 ]
             }
         },
@@ -51,8 +56,22 @@ define([], {
         {
             template: 'iframe-slide',
             data: {
-                title: 'MVC Applied to JavaScrpit?',
+                title: 'MVC Applied to JavaScript?',
                 url: 'js/data/0/mvc_in_js.html' 
+            }
+        },
+        {
+            template: 'generic-image',
+            data: {
+                title: 'Previous Slide - Structure',
+                image: 'js/data/0/images/PrevSlideExplained.png'
+            }
+        },
+        {
+            template: 'generic-image',
+            data: {
+                title: 'Previous Slide - Code Model and View',
+                image: 'js/data/0/images/CodeModelView.png'
             }
         },
         {
@@ -90,7 +109,14 @@ define([], {
         {
             template: 'iframe-slide',
             data: {
-                title: 'underscore.js + backbone.js',
+                title: 'mustache',
+                url: 'js/data/0/mustache_demo.html'
+            }
+        },
+        {
+            template: 'iframe-slide',
+            data: {
+                title: 'Auto fetch - backbone.js',
                 url: 'js/data/0/mvc_in_js_auto_update.html' 
             }
         },
@@ -102,23 +128,18 @@ define([], {
                 args: 'utils/listenToServerChange.js'
             }
         },
-        {
-            template: 'iframe-slide',
-            data: {
-                title: 'mustache',
-                url: 'js/data/0/mustache_demo.html'
-            }
-        },
         { 
             template: 'generic-header-links-list',
             data: {
-                title: 'Reference',
+                title: 'QA & Reference',
                 list: [
                     {name : 'backbone.js', url: 'http://backbonejs.org/'},
                     {name : 'underscore.js', url: 'http://underscorejs.org/'},
                     {name : 'mustache', url: 'https://github.com/janl/mustache.js'},
                     {name : 'require.js', url: 'http://requirejs.org/'},
                     {name : 'Backbone Tutorials', url: 'http://backbonetutorials.com/'},
+                    {name : 'This presentation source code', url: 'https://github.com/anvaka/Backbone.js-Intro'},
+                    
                 ]
             }
         }

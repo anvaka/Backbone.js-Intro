@@ -3,5 +3,13 @@
     <h1>{{title}}</h1>
     <h2>{{subtitle}}</h2>
 
-    <div class='author'>{{author}}</div>
+    <div class='author'>
+    {{#author}}
+        <p>{{name}}
+        {{#twitter}}
+            (<a href='https://twitter.com/{{twitter}}' target='_blank'>@{{twitter}}</a>)
+        {{/twitter}}
+        </p>
+    {{/author}}
+    </div>
 </div>
